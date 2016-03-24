@@ -114,8 +114,6 @@ function makeRequest(url, method) {
   xhttp.onreadystatechange = function() {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
       var html = formatXML(xhttp.responseText);
-      console.log(html);
-      console.log(xhttp.response);
       if (html[0]=='error'){
         document.getElementById('view').innerText = 'Error: Invalid XML';
         document.getElementById('status_div').innerText = 'Status: INCORRECT DATA';
@@ -214,7 +212,6 @@ function button_click_upload(){
 function formatXML(xml){
   var parser = new DOMParser();
   xml = parser.parseFromString(xml,"text/xml");
-  console.log(xml);
   if(xml.getElementsByTagName("parsererror").length>0){
     return ['error'];
   }
@@ -274,4 +271,4 @@ var draggable_div = document.getElementById('main');
 draggable_div.addEventListener('dragstart',drag_start,false); 
 document.body.addEventListener('dragover',drag_over,false); 
 document.body.addEventListener('drop',drop,false); 
-makeRequest("nonf.xml", "POST");
+makeRequest("http://localhost/cd_catalog.xml", "POST");
