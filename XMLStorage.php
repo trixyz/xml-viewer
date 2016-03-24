@@ -17,8 +17,7 @@ class XMLStorage{
         *a. tag (id, name,value,fileid)
         *b. attr (id,tag_id,name,value)
         */
-        $xml = simplexml_load_string($xml_string);
-        return $this->parseXML($xml);
+        return $this->makeXML('string', $xml_string);
         
     }
 
@@ -50,7 +49,7 @@ class XMLStorage{
             }
         }
 
-        return $result;
+        return 'File uploaded successfuly! file_id: '.$file_id;
         
     }
 
@@ -73,8 +72,24 @@ class XMLStorage{
         *Params:
         *i. file_path  - XML file path
         */
-        $xml = simplexml_load_file($xml_file_path);
-        return $this->parseXML($xml);
+        return $this->makeXML('file', $xml_file_path);
+    }
+
+    private function makeXML($way,$xml){
+        if ($way=='file'){
+            $xml = simplexml_load_file($xml);
+        } else {
+            $xml = simplexml_load_string($xml);
+        }
+        if($xml){
+            return $this->parseXML($xml);
+        } else {
+            $error = "File upload failed!\n";
+            foreach(libxml_get_errors() as $errors) {
+                $error .= $errors->message."\n";
+            }
+            return $error;
+        }
     }
 
     public function outputXMLFromId($file_id, $tag_id=NULL){

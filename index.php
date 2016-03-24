@@ -22,14 +22,24 @@ if (isset($_GET['file_id'])){
 	}
 
 }*/
-
-
+libxml_use_internal_errors(true);
 $xml = new XMLStorage();
 $xml->parseXMLString($xml_string_example);
 
-if (isset($_FILES)){
-    print_r($_FILES);
+if(isset($_GET['fileid'])){
+
+    if (isset($_GET['id'])){
+        echo $xml->outputXMLFromId($_GET['fileid'], $_GET['id']);
+    } else{
+        echo $xml->outputXMLFromId('JPIXPCAUVH');
+    }
 }
+
+if (isset($_FILES['xml'])){
+    $file_id = $xml->parseXMLFile($_FILES['xml']['tmp_name']);
+    echo $file_id;
+}
+
 
 
 

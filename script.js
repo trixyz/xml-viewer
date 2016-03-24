@@ -114,6 +114,8 @@ function makeRequest(url, method) {
   xhttp.onreadystatechange = function() {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
       var html = formatXML(xhttp.responseText);
+      console.log(html);
+      console.log(xhttp.response);
       if (html[0]=='error'){
         document.getElementById('view').innerText = 'Error: Invalid XML';
         document.getElementById('status_div').innerText = 'Status: INCORRECT DATA';
@@ -152,7 +154,7 @@ function uploadFile(file){
   var xhr = new XMLHttpRequest();
   xhr.onload = function () {
     if (xhr.status === 200) {
-      upload_status.innerText = 'File uploaded succesefuly. Filename: ' + xhr.responseText;
+      upload_status.innerText = xhr.responseText;
     } else {
       upload_status.innerText = 'Upload failed: ' + xhr.status;
     }
@@ -212,6 +214,7 @@ function button_click_upload(){
 function formatXML(xml){
   var parser = new DOMParser();
   xml = parser.parseFromString(xml,"text/xml");
+  console.log(xml);
   if(xml.getElementsByTagName("parsererror").length>0){
     return ['error'];
   }
