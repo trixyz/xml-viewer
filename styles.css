@@ -1,0 +1,42 @@
+.main{
+    position: absolute;
+    border: 4px solid black; 
+    padding: 10px;
+    top: 0;
+    left: 0;
+}
+
+.input{
+    width: 300px;
+}
+
+.views_div a{
+    margin: 0 5px;
+}
+
+.view{
+    border: 2px solid blue;
+    padding: 10px;
+    overflow-y: auto;
+    height: 400px;
+    width: 650px;
+}
+
+.errors_view{
+    border: 2px solid red;
+    padding: 10px; 
+    overflow-y: auto;
+    height: 200px;
+    width: 650px;
+    display:none;
+}
+
+.warnings_view{
+    border: 2px solid red;
+    padding: 10px; 
+    overflow-y: auto;
+    height: 200px;
+    width: 650px;
+    display:none;
+}
+

@@ -9,6 +9,7 @@ $xml_string_example = <<< XM
 		<ChildOfChild>Child 1</ChildOfChild>
 		<ChildOfChild>Child 2</ChildOfChild>
 	</ChildOfRoot>
+    <error text="error1"/>
 </Root>
 XM;
 /*
@@ -24,26 +25,12 @@ if (isset($_GET['file_id'])){
 
 
 $xml = new XMLStorage();
-$result = $xml->link->query('SELECT * FROM tag');
-$a = new SimpleXMLElement($xml_string_example);
-$parsed_xml = $xml->parseXMLString($xml_string_example);
-foreach ($parsed_xml as $key => $value) {
-    echo $key;
-    echo ' => ';
-    print_r($value);
-    if(array_key_exists('attributes', $value)){
-        if(!($value['attributes']->__toString()==='')){
-            echo '<br>';
-            foreach ($value['attributes'] as $key => $value) {
-                echo $key;
-                echo ' => ';
-                echo $value;
-                # code...
-            }
-        }
-    }
-    echo '<br>';
+$xml->parseXMLString($xml_string_example);
+
+if (isset($_FILES)){
+    print_r($_FILES);
 }
+
 
 
 

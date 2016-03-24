@@ -77,12 +77,31 @@ class XMLStorage{
         return $this->parseXML($xml);
     }
 
-    public function outputXMLFromId($tag_id){
+    public function outputXMLFromId($file_id, $tag_id=NULL){
         /**Outputs XML from database starting from tag specified by id attribute value (not id field in db table)
         *Params:
         *i. tag_id  - XML file id
         *ii. XML tag id (if missed – start from top) 
         */
+
+        $file_id = $this->link->quote($file_id);
+        if($tag_id==NULL){
+            $query = "SELECT *, min(id) FROM tag WHERE file_id=$file_id;";
+            $result = $this->link->query($query);
+            $row = $result->fetch(PDO::FETCH_ASSOC);
+        } else {
+            $tag_id = $this->link->quote($tag_id);
+            $query = "SELECT * FROM tag WHERE id=$tag_id and file_id=$file_id;";
+            $result = $this->link->query($query);
+            $row = $result->fetch(PDO::FETCH_ASSOC);
+        }
+        if(!($row)){
+            return "we don't have such a tag";
+        }
+        return $row['value'];
+
+       
+
     }
 
 
